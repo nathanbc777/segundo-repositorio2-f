@@ -16,18 +16,24 @@ function processaTexto() {
     //let palavras = texto.split(/[^a-zA-Z]+/); "letras minusculas e maiusculas"
       let palavras = texto.split("/\p{L}+/u/"); /* \P negação;  {L} conjunto de letras; + uma ou mais ocorrências; u Unicode*/
 
-    let frequencias = [];
+      const frequencias = contaFrequencias(palavras);
 
-    for ( let i in palavras) {
-        frequencias[i] = 0;
-        for ( let j in palavras) {
-            if(palavras[i] == palavras[j]) {
-                frequecias[i]++;
-            }
-        }
+      let ordenadas = Object.keys(frequencias).sort(ordenaPalavra);
+      function ordenaPalavra(p1, p2) {
+         return frequencias[p2] - frequencias[p1];
+      }
+      return ordenadas.slice(0,10);
     }
 
-    console.log(frequencias);
-
-    return palavras
-}
+    function contaFrequencias(palavras) {
+    let frequencias = {};
+    for ( let i of palavras) {
+        frequencias[i] = 0;
+        for ( let j of palavras) {
+            if( i == j ) {
+                frequecias[i]++;
+              }
+            }
+        }
+        return palavras;
+    }
